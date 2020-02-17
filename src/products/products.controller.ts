@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import {Controller, Get, Param, Post, Body, Put, Delete, Req} from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { Request } from 'express';
 
 interface ProductDto {
     id: string;
@@ -11,8 +12,8 @@ export class ProductsController {
     constructor(private productsService: ProductsService) {}
 
     @Get()
-    getProducts() {
-        return this.productsService.getProducts();
+    getProducts(@Req() request: Request) {
+        return [...this.productsService.getProducts()];
     }
 
     @Get(':id')
